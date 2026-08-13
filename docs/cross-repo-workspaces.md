@@ -61,14 +61,14 @@ data/<umbrella-id>/
   DESIGN.md            the cross-repo contract being designed; the durable output
   AGENTS.md            how the repos relate, for whichever agent works here
   repos/
-    backend/           treehouse worktree of the backend repo
-    frontend/          treehouse worktree of the frontend repo
-    shared/            treehouse worktree of the shared repo
+    backend/           worktree of the backend repo (projects/backend)
+    frontend/          worktree of the frontend repo (projects/frontend)
+    shared/            worktree of the shared repo (projects/shared)
 ```
 
 Properties:
 
-- Each `repos/<name>/` is a real treehouse worktree of that repo, at a clean default-branch base, distinct from every primary checkout - the same isolation firstmate already guarantees for a single task worktree.
+- Each `repos/<name>/` is a real worktree of that repo, created directly with `git worktree add --detach` against the `projects/<name>` clone at a clean default-branch base, distinct from every primary checkout - the same isolation firstmate already guarantees for a single task worktree. (The treehouse pool is deliberately not used; that is the supervised-crew path, not the lab path.)
 - No autonomous worker is launched and no merge poll is armed.
   The umbrella is a laboratory; there is nothing for teardown or pr-check to reason about because there is no branch to land yet.
 - The captain enters the umbrella and runs their own coding-agent session there (`cd data/<umbrella-id> && claude`), or firstmate spawns one worker scoped to the whole umbrella dir for a design/scout deliverable.
@@ -111,13 +111,13 @@ The captain drives exactly the phase that needs them and delegates exactly the p
 Creates and tears down umbrella workspaces.
 
 - `fm-umbrella.sh create <umbrella-id> --repos <name>,<name>,...`
-  - For each named repo registered in `data/projects.md`, allocate a treehouse worktree at the fetched default-branch tip (reuse `fm-spawn.sh`'s existing base-freshness path) into `data/<umbrella-id>/repos/<name>/`.
+  - For each named repo, resolved directly to its clone at `projects/<name>`, create a worktree with `git worktree add --detach` at the fetched default-branch tip into `data/<umbrella-id>/repos/<name>/`.
   - Write a skeleton `DESIGN.md` and a cross-repo `AGENTS.md` describing the repo relationships.
-  - Record `state/<umbrella-id>.meta` with `kind=umbrella` and one `worktree=` line per repo (`worktree_<name>=<path>`), which no single-repo consumer reads.
+  - Record `data/<umbrella-id>/umbrella.meta` (deliberately under `data/`, NOT `state/<id>.meta`, so no single-repo task/watcher/teardown/pr-check scan ever sees it) with `kind=umbrella` and one `worktree_<name>=<path>` line per repo.
   - Do **not** arm a poll, launch a worker, or create a branch. This is a lab.
 - `fm-umbrella.sh teardown <umbrella-id>`
-  - Reuse the scout completion gate: proceed only once DESIGN.md exists and no captain-held decisions are open.
-  - Return each treehouse worktree; never force without explicit discard authority.
+  - Completion gate: proceed only once DESIGN.md exists and is non-empty; `--force` bypasses that gate.
+  - Return each worktree, discarding the scratch `repos/` checkouts even if dirty after printing each one's `git status` so nothing is discarded silently, and keep DESIGN.md as the durable artifact.
 
 `kind=umbrella` is new and is deliberately invisible to every single-repo mechanism, so no existing invariant is touched.
 

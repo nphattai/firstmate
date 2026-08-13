@@ -19,6 +19,7 @@ make_home() {
   local name=$1; shift
   local home="$TMP_ROOT/$name"
   mkdir -p "$home/projects" "$home/state" "$home/data"
+  home=$(cd "$home" && pwd -P)
   local r
   for r in "$@"; do
     fm_git_init_commit "$home/projects/$r"
@@ -91,7 +92,7 @@ test_teardown_keeps_design_removes_worktrees() {
   assert_present "$home/data/f/DESIGN.md" "DESIGN.md was not kept"
   # The clone's worktree list no longer references the lab.
   assert_no_grep "data/f/repos/backend" <(git -C "$home/projects/backend" worktree list) \
-    "clone still lists the removed worktree" 2>/dev/null || true
+    "clone still lists the removed worktree"
   pass "teardown removes worktrees but keeps DESIGN.md"
 }
 
@@ -134,7 +135,7 @@ test_rollback_on_bad_repo() {
   assert_absent "$home/data/f" "failed create left the umbrella dir behind"
   # The good repo's worktree list must be clean (rollback removed it).
   assert_no_grep "data/f/repos/backend" <(git -C "$home/projects/backend" worktree list) \
-    "rollback left a dangling worktree" 2>/dev/null || true
+    "rollback left a dangling worktree"
   pass "a bad repo rolls back every created worktree and the dir"
 }
 
