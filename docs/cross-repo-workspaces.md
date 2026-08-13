@@ -1,6 +1,6 @@
 # Cross-repo workspaces (design proposal)
 
-Status: proposal, not yet implemented.
+Status: proposal. Rollout step 1 (the umbrella lab, `bin/fm-umbrella.sh`) is implemented; the epic fan-out (steps 2-3 in section 9) is not yet built.
 Audience: firstmate maintainers.
 This document proposes how firstmate should support a feature that spans several repositories at once, while keeping the captain close to the design and in control of the result.
 
