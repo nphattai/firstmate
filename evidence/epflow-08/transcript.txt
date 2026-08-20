@@ -1,0 +1,25 @@
+==================== 1+2. clean single-repo passes; a benign mention WARNS ====================
+-> lint EXIT 0 (the epic passes).
+   epic lint WARNINGS for /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T//epflow08-demo.tpTkaq/home/data/plans/epic-flag (1):
+     1. story flag-03.md: body references repo "insurtech" but its repo: is "webapp" - if this is a real cross-repo change, split it into per-repo stories linked by depends: (one story = one repo); an incidental mention is fine
+   epic lint OK: "flag" - 3 stories, contract satisfied.
+
+==================== 3. a story ASSIGNING work to a second repo FAILS ====================
+-> lint EXIT 1 as expected. Reason:
+     1. story flag-04.md: body assigns work to a second repo "insurtech" (its repo: is "webapp") - one story = one repo = one dispatchable unit (a worker spawns in ONE worktree); split it into per-repo stories linked by depends:
+
+==================== 4a. FM_EPIC_LINT_MULTIREPO=off disables the scan ====================
+-> lint EXIT 0 (scan disabled).
+   (no cross-repo finding with the scan off)
+
+==================== 4b. FM_EPIC_LINT_MULTIREPO=warn downgrades the FAIL to a warning ====================
+-> lint EXIT 0 (warn mode never fails).
+   epic lint WARNINGS for /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T//epflow08-demo.tpTkaq/home/data/plans/epic-flag (2):
+     1. story flag-03.md: body references repo "insurtech" but its repo: is "webapp" - if this is a real cross-repo change, split it into per-repo stories linked by depends: (one story = one repo); an incidental mention is fine
+     2. story flag-04.md: body references repo "insurtech" but its repo: is "webapp" - if this is a real cross-repo change, split it into per-repo stories linked by depends: (one story = one repo); an incidental mention is fine
+
+==================== 4c. FM_EPIC_LINT_MULTIREPO=strict fails even the benign mention ====================
+-> lint EXIT 1 as expected. Reason:
+     1. story flag-03.md: body assigns work to a second repo "insurtech" (its repo: is "webapp") - one story = one repo = one dispatchable unit (a worker spawns in ONE worktree); split it into per-repo stories linked by depends:
+
+OK - clean passes, benign warns, a two-repo deliverable fails, and off/warn/strict tune it.
