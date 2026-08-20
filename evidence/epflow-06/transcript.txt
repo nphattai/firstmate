@@ -1,0 +1,39 @@
+
+========================================================================
+STATE 1 - story demo-02 unmerged: expect REFUSE naming demo-02
+========================================================================
+error: epic "demo" is INCOMPLETE for /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj: no commit on epic/demo references story: demo-02.
+Land the missing stories on epic/demo first, or pass --allow-incomplete to ship a deliberate partial epic (logged).
+[exit 1]
+
+========================================================================
+STATE 2 - land demo-02, still no green evidence: expect REFUSE (fail-closed)
+========================================================================
+error: epic "demo" has no no-mistakes-green evidence for epic/demo tip f6852e5a3e5fe8ce70e1811c8873930b5a33a7e9 (/var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj).
+Run the whole-epic no-mistakes gate and record its green tip in /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/home/data/plans/260820-1203-epic-demo/no-mistakes-green, or pass --allow-incomplete to ship without it (logged).
+[exit 1]
+
+========================================================================
+STATE 3 - record no-mistakes-green at the epic tip: expect the PR to open
+========================================================================
+[dry-run] (cd /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj && /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/stub/gh-axi pr create --base main --head epic/demo --title "Epic demo: delivery (epic/demo -> main)" --body-file -)
+[dry-run] record to epic ships.md: - 2026-08-20: delivery [dry-run:epic/demo->main] (epic/demo -> main) [/var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj]
+/var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj: production PR (epic/demo -> main): [dry-run:epic/demo->main]
+[exit 0]
+
+========================================================================
+STATE 3b - epic advances past the green run: green is sha-bound, expect REFUSE
+========================================================================
+error: epic "demo" has no no-mistakes-green evidence for epic/demo tip 22eb3a6849af7d579013f2b88038d1a38d98a788 (/var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj).
+Run the whole-epic no-mistakes gate and record its green tip in /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/home/data/plans/260820-1203-epic-demo/no-mistakes-green, or pass --allow-incomplete to ship without it (logged).
+[exit 1]
+
+========================================================================
+STATE 4 - --allow-incomplete: single logged bypass ships despite incomplete+stale-green
+========================================================================
+warn: --allow-incomplete: skipping epic-completeness and no-mistakes-green gates for /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj (deliberate partial/unvalidated ship of epic demo).
+[dry-run] record to epic ships.md: - 2026-08-20: BYPASS --allow-incomplete ship of epic demo [/var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj] (completeness + no-mistakes-green gates skipped)
+[dry-run] (cd /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj && /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/stub/gh-axi pr create --base main --head epic/demo --title "Epic demo: delivery (epic/demo -> main)" --body-file -)
+[dry-run] record to epic ships.md: - 2026-08-20: delivery [dry-run:epic/demo->main] (epic/demo -> main) [/var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj]
+/var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.xCbGyIobfO/proj: production PR (epic/demo -> main): [dry-run:epic/demo->main]
+[exit 0]
