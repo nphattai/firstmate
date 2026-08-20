@@ -1,0 +1,24 @@
+============================================================
+1. A STANDARD epic (seven-key frontmatter, one gate story)
+   $ fm-epic-lint.sh <good-epic>
+------------------------------------------------------------
+epic lint OK: "things" - 3 stories, contract satisfied.
+   exit: 0  (expected 0 - PASS)
+
+============================================================
+2. The SAME epic with one story authored the wrong way
+   (story: LH-01 - uppercase id, story:/phase: keys, mismatch)
+   $ fm-epic-lint.sh <doctored-epic>
+------------------------------------------------------------
+epic lint FAILED for /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T/tmp.UvSIJ6Xwac/bad (8 problem(s)):
+  1. story LH-01.md: unexpected frontmatter key "story:" (only id/epic/repo/pr_base/depends/kind/gate are allowed)
+  2. story LH-01.md: unexpected frontmatter key "phase:" (only id/epic/repo/pr_base/depends/kind/gate are allowed)
+  3. story LH-01.md: missing frontmatter key "id:"
+  4. story LH-01.md: epic: "aimica-learning-hub" does not match epic.md epic: "things"
+  5. story LH-01.md: repo "ghost-repo" is not registered in this home (data/projects.md)
+  6. story LH-01.md: pr_base "refs/bad~~name" is not a valid branch name
+  7. story LH-01.md: kind "frobnicate" must be ship or scout
+  8. epic has 2 stories with gate: true (exactly one contract-gate story is required)
+   exit: 1  (expected 1 - FAIL, with the numbered reasons above)
+
+Done. The same lint is the epic-review gate AND the promote-validate check.
