@@ -1,0 +1,58 @@
+==================== 1. DRAFT status refuses ====================
+error: epic "ep" has status "draft", not "active": the design is not frozen. Review the design and SIGN the epic (set status: active and a signed_off date in /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T//epflow02-demo.tFAcZE/draft/umbrellas/u/plans/ep/epic.md) before promoting; promote will not seed a backlog from an unsigned draft.
+  (verified: nothing written to data/plans or the backlog)
+
+============= 2. sign (freeze), then promote passes =============
+moved epic dir -> data/plans/ep (umbrella keeps a back-symlink to it)
+seeded svc-01  [things]  (repo: svc, kind: ship)
+seeded svc-02  [things]  (repo: svc, kind: ship)
+seeded svc-03  [things]  (repo: svc, kind: ship)
+
+Promoted umbrella "u" -> epic "things" (data/plans/ep).
+  seeded: 3    reconciled: 0    renamed: 0    already correct: 0    total: 3
+
+STOP - the remaining steps are human/firstmate-owned (this script never signs, branches, or dispatches):
+  1. Design is signed and frozen (status: active, signed_off: 2026-08-20). If you revise it, re-sign (update signed_off in data/plans/ep/epic.md) before re-running promote.
+  2. Cut one epic branch per involved repo:
+     bin/fm-epic-branch.sh create things svc
+  3. Firstmate dispatches the queued stories (each anchored to its epic branch).
+  4. When the epic has landed, tear down the umbrella:
+     bin/fm-umbrella.sh teardown u
+  seeded backlog:
+    - [ ] svc-01 - [things] svc-01 heading (repo: svc) (kind: ship) (since 2026-08-20)
+    - [ ] svc-02 - [things] svc-02 heading (repo: svc) (kind: ship) (since 2026-08-20)
+    - [ ] svc-03 - [things] svc-03 heading (repo: svc) (kind: ship) (since 2026-08-20)
+
+======= 3. edit a story AFTER sign-off -> stale, refuses ========
+error: epic "ep" sign-off is stale: umbrellas/u/plans/ep/stories/svc-02.md was modified 2026-08-20, AFTER signed_off: 2026-08-18. The signed design no longer matches the files - re-sign the current design (update signed_off in /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T//epflow02-demo.tFAcZE/stale/umbrellas/u/plans/ep/epic.md) before promoting.  (override with --allow-stale-sign to promote from the stale sign-off anyway.)
+  (verified: nothing written to data/plans or the backlog)
+
+======== 4. --allow-stale-sign proceeds with a WARNING =========
+warning: epic "ep" sign-off is stale: umbrellas/u/plans/ep/stories/svc-02.md was modified 2026-08-20, AFTER signed_off: 2026-08-18. The signed design no longer matches the files - re-sign the current design (update signed_off in /var/folders/6l/_c1hp08x59dg6dz_d4hq17dw0000gn/T//epflow02-demo.tFAcZE/stale/umbrellas/u/plans/ep/epic.md) before promoting.  (proceeding anyway: --allow-stale-sign)
+moved epic dir -> data/plans/ep (umbrella keeps a back-symlink to it)
+seeded svc-01  [things]  (repo: svc, kind: ship)
+seeded svc-02  [things]  (repo: svc, kind: ship)
+seeded svc-03  [things]  (repo: svc, kind: ship)
+
+Promoted umbrella "u" -> epic "things" (data/plans/ep).
+  seeded: 3    reconciled: 0    renamed: 0    already correct: 0    total: 3
+
+STOP - the remaining steps are human/firstmate-owned (this script never signs, branches, or dispatches):
+  1. Design is signed and frozen (status: active, signed_off: 2026-08-18). If you revise it, re-sign (update signed_off in data/plans/ep/epic.md) before re-running promote.
+  2. Cut one epic branch per involved repo:
+     bin/fm-epic-branch.sh create things svc
+  3. Firstmate dispatches the queued stories (each anchored to its epic branch).
+  4. When the epic has landed, tear down the umbrella:
+     bin/fm-umbrella.sh teardown u
+  seeded despite the stale sign-off (override), backlog:
+    - [ ] svc-01 - [things] svc-01 heading (repo: svc) (kind: ship) (since 2026-08-20)
+    - [ ] svc-02 - [things] svc-02 heading (repo: svc) (kind: ship) (since 2026-08-20)
+    - [ ] svc-03 - [things] svc-03 heading (repo: svc) (kind: ship) (since 2026-08-20)
+
+============ 5. re-sign the current design -> passes ===========
+moved epic dir -> data/plans/ep (umbrella keeps a back-symlink to it)
+seeded svc-01  [things]  (repo: svc, kind: ship)
+seeded svc-02  [things]  (repo: svc, kind: ship)
+seeded svc-03  [things]  (repo: svc, kind: ship)
+
+OK - draft and stale-sign are refused (naming the file); signing and re-signing pass; the override warns.
