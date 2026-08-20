@@ -1,0 +1,76 @@
+# herdr workspace list (real binary, read-only) - captured on the captain's live session
+# herdr 0.8.0
+# Home workspaces are labeled by home NAME; crew task workspaces nest under them (└ ...).
+
+{
+  "number": 1,
+  "label": "distro",
+  "workspace_id": "w5R",
+  "agent_status": "working"
+}
+{
+  "number": 2,
+  "label": "aimica",
+  "workspace_id": "w7S",
+  "agent_status": "working"
+}
+{
+  "number": 3,
+  "label": "└ lh-11-storage-base-entityprefix-refactor · p:a-G6ecgiXd5zPKPCBJtGYw",
+  "workspace_id": "w99",
+  "agent_status": "idle"
+}
+{
+  "number": 4,
+  "label": "└ lh-02-scaffold-forked-apps · p:rP0V_dfsm2NyLL0YTe7CQQ",
+  "workspace_id": "w9A",
+  "agent_status": "idle"
+}
+{
+  "number": 5,
+  "label": "└ lh-scout-app-layering · p:eT-MIbftV4SZzoYPNl-gNQ",
+  "workspace_id": "w9E",
+  "agent_status": "idle"
+}
+{
+  "number": 6,
+  "label": "infina-inside",
+  "workspace_id": "w7T",
+  "agent_status": "idle"
+}
+{
+  "number": 7,
+  "label": "└ hlay-06-home-label-survives-compact · p:tBf2W-H1J8v9cy2w6RMiwg",
+  "workspace_id": "w9F",
+  "agent_status": "working"
+}
+{
+  "number": 8,
+  "label": "└ epflow-01-promote-full-reconcile-verify · p:PAQU1iZC1r3iYjDo3cCKhg",
+  "workspace_id": "w9G",
+  "agent_status": "working"
+}
+{
+  "number": 9,
+  "label": "└ epflow-03-single-source-design-artifact · p:yIktucvlIoxgwBttX9nuiA",
+  "workspace_id": "w9H",
+  "agent_status": "working"
+}
+{
+  "number": 10,
+  "label": "└ epflow-06-ship-completeness-gate · p:A9ggVvsvluuToiHHCkpCEQ",
+  "workspace_id": "w9J",
+  "agent_status": "working"
+}
+{
+  "number": 11,
+  "label": "└ dbev-13-api-homes-reliability-lite · p:gYw0bIMxGsJZz1-RAa4gzw",
+  "workspace_id": "w9K",
+  "agent_status": "done"
+}
+{
+  "number": 12,
+  "label": "└ dbev-09-design · p:ATJMbwCQWsy-bPRpwMPH7g",
+  "workspace_id": "w9M",
+  "agent_status": "working"
+}

@@ -1,0 +1,5 @@
+ok - labeler labels the workspace and pane with the home name when FM_HOME is set
+ok - labeler refuses (warns, no rename) rather than mislabelling 'firstmate' when FM_HOME is unset
+ok - labeler is a silent no-op on a non-herdr runtime
+all fm-herdr-home-label tests passed
+(exit 0)

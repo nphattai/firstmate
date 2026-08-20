@@ -1,0 +1,21 @@
+==================================================================
+ hlay-06 - home workspace label across a compact: before / after
+ OLD = bin/fm-herdr-home-label.sh @ HEAD~1 (pre-fix)
+ NEW = bin/fm-herdr-home-label.sh @ HEAD   (this fix)
+ Fake herdr mirroring the real 0.8.0 CLI; deterministic.
+==================================================================
+
+INVARIANT 1 - home resolved (FM_HOME=.../homes/aimica):
+  [OLD]
+    renames> workspace rename ws1 aimica --session default|pane rename p1 aimica · firstmate --session default
+  [NEW]
+    renames> workspace rename ws1 aimica --session default|pane rename p1 aimica · firstmate --session default
+  => both label the workspace 'aimica' (the home name). Correct, unchanged.
+
+INVARIANT 2 - FM_HOME UNSET (the silent-mislabel bug):
+  [OLD]  bug: silently renames the workspace to the code-root 'firstmate'
+    renames> workspace rename ws1 firstmate --session default|pane rename p1 firstmate · firstmate --session default
+  [NEW]  fixed: warns and refuses; existing label untouched
+    warn> warning: herdr home labeling: FM_HOME is not set; refusing to label the workspace rather than defaulting it to the code-root name "firstmate", which would collapse this home under a flat group
+    renames> (none - label left untouched)
+  => NEW never renames to 'firstmate'; a missing home cannot corrupt the grouping.
