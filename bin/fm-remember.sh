@@ -4,7 +4,7 @@
 # changes the caller's exit status, and never emits diagnostic noise.
 #
 # It exists so firstmate's natural capture points - a durably recorded captain
-# decision (bin/fm-decision-hold.sh) and a /stow knowledge sweep (the stow skill)
+# decision (bin/fm-captain-hold.sh) and a /stow knowledge sweep (the stow skill)
 # - accumulate the home's memory automatically instead of only when someone runs
 # the write CLI by hand.
 #
