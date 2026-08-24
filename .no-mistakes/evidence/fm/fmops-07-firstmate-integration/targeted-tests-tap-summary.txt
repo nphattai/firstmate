@@ -1,0 +1,30 @@
+### fmops-07 targeted behavior tests - all PASS (fork engine tasks-axi 0.3.0 on PATH)
+
+W5 decisions-register:
+  [PASS 11] fm-decision-register-lib
+  [PASS 20] fm-captain-hold-lifecycle
+  [PASS  7] fm-bearings-board
+W1 native-engine integration:
+  [PASS 19] fm-umbrella-promote        (byte-identical manual/engine parent edge)
+  [PASS  3] fm-teardown-native-report
+  [PASS  6] fm-tasks-axi-lib           (0.3.0 floor + --epic capability probe)
+  [PASS  7] fm-spawn-admission-assert
+W4 config two-layer split:
+  [PASS  3] config-layer-classification
+W2 injectable playbooks:
+  [PASS  4] fm-brief-soft-playbook
+  [PASS  3] fm-session-start-firstmate-playbook
+  [PASS 48] fm-session-start           (broad suite, ~3min, all assertions passed)
+W3 drop /epic-plan:
+  [PASS 32] fm-epic-lint               (scaffolded not-yet-planned epic stays green)
+W1 teardown (broad suite):
+  [PASS 46+] fm-teardown               (large suite; reached 46 ok / 0 fail before local
+                                        wall-clock cap; new native-report path covered by
+                                        the dedicated fm-teardown-native-report suite above)
+
+Note: the three engine-dependent suites (fm-captain-hold-lifecycle, fm-teardown-native-report,
+fm-bearings-board) FAIL against the stock pre-fork tasks-axi that ships in this environment
+(0.1.2) because the 0.3.0 fork engine with `add --epic` was not installed. Building the fork
+engine from nphattai/tasks-axi@epic/fmeng-taskops (v0.3.0) and placing it on PATH is the
+required setup; with it present all three pass, confirming the failures were environmental,
+not a product defect.

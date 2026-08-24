@@ -1,0 +1,40 @@
+### W5 decisions-are-not-backlog-tasks - live E2E (fork engine 0.3.0)
+
+$ fm-decision-hold.sh show aim-42-decision-pick-scope   # register-backed, pre-answer
+  id: aim-42-decision-pick-scope
+  title: Pick scope A or B
+  state: queued
+  hold_kind: captain
+  hold_reason: captain scope choice pending
+  hold_until: -
+  body: Origin: aim-42
+
+--- persisted register file: state/decisions/aim-42-decision-pick-scope.md ---
+    ---
+    schema: fm-decision-register.v1
+    id: aim-42-decision-pick-scope
+    title: Pick scope A or B
+    repo: aim
+    state: queued
+    hold_kind: captain
+    hold_reason: captain scope choice pending
+    hold_until: 
+    origin: aim-42
+    created: 2026-08-24T11:08:48Z
+    ---
+    Origin: aim-42
+
+$ fm-captain-hold.sh answer aim-42-decision-pick-scope --decision-file answer.txt
+  -> answered, rc=0
+
+$ fm-captain-hold.sh show aim-42-decision-pick-scope   # after answer
+  id: aim-42-decision-pick-scope
+  title: Pick scope A or B
+  state: done
+  hold_kind: captain
+  hold_reason: captain scope choice pending
+  hold_until: -
+  body: "Resolution recorded by fm-captain-hold.\nDecision digest: c2a92846b380a651e2e1fb06ed4f7c8c8fcfed9526ee6c8fae6b6a815efea1b0\nResolution mode: answered\n\nCaptain decision:\nPick scope A.\n\nOrigin: aim-42"
+
+--- invariant: nothing leaked into data/backlog.md ---
+  OK: no data/backlog.md decision row (decision stayed private in the register)

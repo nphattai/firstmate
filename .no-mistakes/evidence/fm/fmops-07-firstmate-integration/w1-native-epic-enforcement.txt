@@ -1,0 +1,40 @@
+### W1 native fork engine --epic enforcement-on-write (tasks-axi 0.3.0)
+
+$ tasks-axi add demo-1 "do a thing"          # no --epic -> refused
+error: Missing --epic <slug> (or --child-of <parent-id>)
+code: VALIDATION_ERROR
+help[2]: Every task belongs to an epic. Pass --epic <slug> where slug names a data/plans/*-epic-<slug>/epic.md,Or use --child-of <parent-id> to inherit the epic from an existing task
+  rc=2
+
+$ tasks-axi add demo-1 "do a thing" --epic fmops   # membership enforced, [fmops] auto-stamped
+ok: added demo-1 -> Queued
+task:
+  id: demo-1
+  title: "[fmops] do a thing"
+  state: queued
+  blocked: no
+  blocked_by: none
+  held: no
+  hold_reason: "-"
+  hold_kind: "-"
+  hold_until: "-"
+  kind: task
+  repo: "-"
+  priority: "-"
+  created: 2026-08-24
+  closed: "-"
+  deps: "parent:fmops"
+  links: none
+  body: ""
+help[2]:
+  - Run `tasks-axi start demo-1` to move it to in flight
+  - Run `tasks-axi block demo-1 --by <other>` to record a dependency
+  rc=0
+
+--- resulting backlog row (engine-rendered [fmops] + parent edge) ---
+    # Backlog
+    
+    ## In flight
+    ## Queued
+    - [ ] demo-1 - [fmops] do a thing parent: fmops (since 2026-08-24)
+    ## Done
