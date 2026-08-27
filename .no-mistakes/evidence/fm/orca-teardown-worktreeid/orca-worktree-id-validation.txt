@@ -1,0 +1,13 @@
+# Orca worktree id validation - before vs after fix
+
+Probing the validator each code version uses when checking orca_worktree_id.
+
+## BASE (962f036) - shared atom validator only
+REFUSE  healthy composite <uuid>::<abs-path>
+REFUSE  malformed (relative path suffix)
+REFUSE  injection-shaped (;rm -rf /)
+
+## FIXED (edf7913) - fm_backend_orca_worktree_id_valid
+ACCEPT  healthy composite <uuid>::<abs-path>
+REFUSE  malformed (relative path suffix)
+REFUSE  injection-shaped (;rm -rf /)
